@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <form action="" method="get" id="search-form">
+      <div class="form-group">
+        <h1>Search Movie: </h1>
+        <input type="text" id="string">
+          <button type="submit" onclick="loadMovie()">Search</button>
+      </form>
+
+            <!-- Här placerar vi vårt resultat -->
+            <div id="result" class="center">
+                <ul id="movies">
+                </ul>
+            </div>
+      </div>
+</body>
+<script src="main.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+</html>

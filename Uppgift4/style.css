@@ -1,0 +1,16 @@
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    text-decoration: underline;
+    font-size: 20px;
+    font-style: italic;
+    color:white;
+}
+body
+{
+  text-align: center;
+  background-image: url("http://wallpaper.zone/img/4855349.jpg");
+  color:white;
+  padding-top: 17%;
+}
