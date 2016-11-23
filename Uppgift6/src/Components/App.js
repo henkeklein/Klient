@@ -11,6 +11,10 @@ class App extends Component {
       </div>
     );
   }
+
+  searchMovie(title){
+    this.setState({search: this.state.search});
+  }
 }
 
 export default App;
