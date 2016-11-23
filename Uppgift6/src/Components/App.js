@@ -13,22 +13,25 @@ class App extends Component {
 
   render() {
     var movies = _.map(this.state.movies, (movie) =>{
-      return <li>{movie.Title}  {movie.Year} <img src={movie.Poster} height="30%" width="20%"/></li>;
+      return <li>{movie.Title}  {movie.Year}  <img src={movie.Poster}/>
+      <Button
+        style={{borderWidth: 1, borderColor: 'blue'}}
+        onClick={this.handlePress}>
+        See Spotify Album
+      </Button>
+      </li>;
     });
     return (
       <div>
       <h1>Welcome To My Mashup</h1>
       <Header />
       <input ref="query" onChange={ (e) => { this.search(); } } type="text" />
+      <div style={{flexDirection: 'column', display: 'flex', width: '30%', height: '50%'}}>
       <h4>
       <ul>{movies}
-      <Button
-        style={{borderWidth: 1, borderColor: 'blue'}}
-        onClick={this.handlePress}>
-        Press Me!
-      </Button>
       </ul>
       </h4>
+      </div>
       </div>
     );
   }
