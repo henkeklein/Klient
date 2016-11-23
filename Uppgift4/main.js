@@ -1,10 +1,11 @@
 "use strict";
 var omdbAPI = new XMLHttpRequest();
+var query;
 
 document.getElementById("search-form").onsubmit = function(event) {
-    var query = decodeURI(document.getElementById("string").value);
+    query = decodeURI(document.getElementById("string").value);
     var omdbURL = "http://www.omdbapi.com/?s=" + query;
-    omdbAPI.open("get", omdbURL, true);
+    omdbAPI.open("GET", omdbURL, true);
     omdbAPI.send();
     if(query == ''){
       checkIfEmpty(query);
@@ -15,7 +16,7 @@ document.getElementById("search-form").onsubmit = function(event) {
     event.preventDefault();
 };
 function loadMovie(){
-omdbAPI.addEventListener("load", function() {
+omdbAPI.addEventListener("load", function(event) {
     var i = 0;
     var movies = document.getElementById("movies");
     var result = JSON.parse(this.responseText);
