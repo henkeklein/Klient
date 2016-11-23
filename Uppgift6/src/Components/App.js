@@ -16,11 +16,15 @@ class App extends Component {
       return <li>{movie.Title}  {movie.Year}  <img src={movie.Poster}/>
       <Button
         style={{borderWidth: 1, borderColor: 'blue'}}
-        onClick={this.handlePress}>
+        onClick={this.searchSong}>
         See Spotify Album
       </Button>
       </li>;
     });
+      var albums =_.map(this.state.songs, (album) => {
+        return <li>{album.Title}</li>;
+      });
+
     return (
       <div>
       <h1>Welcome To My Mashup</h1>
@@ -29,6 +33,8 @@ class App extends Component {
       <div style={{flexDirection: 'column', display: 'flex', width: '30%', height: '50%'}}>
       <h4>
       <ul>{movies}
+      </ul>
+      <ul>{albums}
       </ul>
       </h4>
       </div>
@@ -40,6 +46,16 @@ class App extends Component {
     Request.get(url).then((response) =>{
       this.setState({
         movies: response.body.Search,
+        total: response.body.totalResults
+      });
+    });
+  }
+  searchSong(event){
+    var id = this.state.movies;
+    var url = `https://api.spotify.com/v1/albums/${id}`
+    Request.get(url).then((response) =>{
+      this.setState({
+        albums: response.body.Search,
         total: response.body.totalResults
       });
     });
