@@ -3,7 +3,7 @@ import './App.css';
 import Header from './Header';
 import Request from 'superagent';
 import _ from 'lodash';
-var Button = require('react-button');
+import Button from 'react-button';
 
 class App extends Component {
   constructor(){
@@ -12,29 +12,36 @@ class App extends Component {
 }
 
   render() {
+    var children = [];
+    var artist = _.map(this.state.artist, (nameArtist) =>{
+      for (var i = 0; i< nameArtist.length; i++){
+        children.push(
+          <li key={i}>{nameArtist}</li>
+        );
+        return children;
+      }
+  });
     var movies = _.map(this.state.movies, (movie) =>{
       return <li>{movie.Title}  {movie.Year}  <img src={movie.Poster}/>
       <Button
-        style={{borderWidth: 1, borderColor: 'blue'}}
-        onClick={this.searchSong}>
+        style={{background: 'green', color: 'black'}}
+        onClick={this.artistOnClick}>
         See Spotify Album
       </Button>
-      </li>;
-    });
-      var albums =_.map(this.state.songs, (album) => {
-        return <li>{album.Title}</li>;
+      </li>
       });
+
 
     return (
       <div>
       <h1>Welcome To My Mashup</h1>
       <Header />
-      <input ref="query" onChange={ (e) => { this.search(); } } type="text" />
+      <input ref="query" onChange={ (e) => { this.search(); this.searchSpotify(); } } type="text" />
       <div style={{flexDirection: 'column', display: 'flex', width: '30%', height: '50%'}}>
       <h4>
       <ul>{movies}
       </ul>
-      <ul>{albums}
+      <ul>{artist}
       </ul>
       </h4>
       </div>
@@ -50,23 +57,29 @@ class App extends Component {
       });
     });
   }
-  searchSong(event){
-    var id = this.state.movies;
-    var url = `https://api.spotify.com/v1/albums/${id}`
-    Request.get(url).then((response) =>{
-      this.setState({
-        albums: response.body.Search,
-        total: response.body.totalResults
-      });
-    });
-  }
+
   search(){
     this.searchMovie(this.refs.query.value);
   }
 
-  handlePress(event) {
-  alert('Pressed!');
+  searchSpotify(){
+    this.searchForArtist(this.refs.query.value);
+  }
+
+  searchForArtist(query) {
+    Request.get(`https://api.spotify.com/v1/search?q=${query}&type=artist`)
+      .then((response) => {
+        this.setState({
+            artist: response.body.artists.items[0],
+            id: response.body.artists.id
+
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 }
+
 
 export default App;
