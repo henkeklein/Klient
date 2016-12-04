@@ -48,6 +48,7 @@ class App extends Component {
       </div>
     );
   }
+//Using Omdb API to search for movies, displays title year and imdb id.
   searchMovie(query){
     var url = `http://www.omdbapi.com?s=${query}&y=&r=json&plot=short`;
     Request.get(url).then((response) =>{
@@ -65,7 +66,7 @@ class App extends Component {
   searchSpotify(){
     this.searchForArtist(this.refs.query.value);
   }
-
+//Using Spotify API to search for artist, displays link to spotify to open searched title.
   searchForArtist(query) {
     Request.get(`https://api.spotify.com/v1/search?q=${query}&type=artist`)
       .then((response) => {
