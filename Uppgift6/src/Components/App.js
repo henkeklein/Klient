@@ -26,12 +26,7 @@ class App extends Component {
       }
   });
     var movies = _.map(this.state.movies, (movie) =>{
-      return <li>{movie.Title}  {movie.Year}  <img src={movie.Poster}/>
-      <Button
-        style={{background: 'green', color: 'black'}}
-        onClick={this.artistOnClick}>
-        See Spotify Album
-      </Button>
+      return <li>{movie.Title}  {movie.Year} Imdb ID: {movie.imdbID}  <img src={movie.Poster}/>
       </li>
       });
 
@@ -45,7 +40,7 @@ class App extends Component {
       <h4>
       <ul>{movies}
       </ul>
-      <h2>Spotify</h2>
+      <h2>Spotify Url</h2>
       <ul>{artist}
       </ul>
       </h4>
