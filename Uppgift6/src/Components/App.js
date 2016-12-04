@@ -13,10 +13,14 @@ class App extends Component {
 
   render() {
     var children = [];
-    var artist = _.map(this.state.artist, (nameArtist) =>{
+    const artist = _.map(this.state.artist, (nameArtist) =>{
       for (var i = 0; i< nameArtist.length; i++){
         children.push(
-          <li key={i}>{nameArtist}</li>
+
+          <li key={i}>
+          <a href={nameArtist}>{nameArtist}</a>
+          </li>
+
         );
         return children;
       }
@@ -41,6 +45,7 @@ class App extends Component {
       <h4>
       <ul>{movies}
       </ul>
+      <h2>Spotify</h2>
       <ul>{artist}
       </ul>
       </h4>
@@ -70,9 +75,7 @@ class App extends Component {
     Request.get(`https://api.spotify.com/v1/search?q=${query}&type=artist`)
       .then((response) => {
         this.setState({
-            artist: response.body.artists.items[0],
-            id: response.body.artists.id
-
+            artist: response.body.artists.items[0].external_urls,
         });
       })
       .catch((err) => {
